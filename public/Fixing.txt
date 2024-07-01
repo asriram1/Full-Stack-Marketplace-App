@@ -1,0 +1,5 @@
+Fixing
+
+- Stripe payment
+- Make the icons interactive on hover
+- Make latest products into whatever category clicked on

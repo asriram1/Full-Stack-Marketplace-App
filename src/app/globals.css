@@ -2,32 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  @apply w-full border p-2 rounded-xl;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+label {
+  @apply text-xs text-gray-600 font-bold uppercase block mt-5 mb-2;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+label.radio-btn {
+  @apply has-[:checked]:bg-blue-100 rounded-md p-2 flex items-center gap-2 my-0 whitespace-nowrap;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+label.radio-btn span.icon {
+  @apply size-12 bg-gray-300 rounded-full flex items-center justify-center;
+}
+
+label.radio-btn svg {
+  @apply h-4;
 }
