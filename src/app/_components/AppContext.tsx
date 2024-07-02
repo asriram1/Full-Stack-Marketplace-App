@@ -8,7 +8,6 @@ import { Ad } from "../_models/Ad";
 
 import { SetStateAction, Dispatch } from "react";
 import { isNullOrUndefined } from "util";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import GetSessionEmail from "./GetSessionEmail";
 
 interface CartContextType {

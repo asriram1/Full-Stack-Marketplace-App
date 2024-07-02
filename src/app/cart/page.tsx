@@ -8,12 +8,14 @@ import { CartContext, cartProductPrice } from "../_components/AppContext";
 import toast from "react-hot-toast";
 import CartProduct from "../_components/CartProduct";
 import { getServerSession } from "next-auth";
+
 // import { authOptions } from "../_libs/authOptions";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Ad } from "../_models/Ad";
 import GetSessionEmail from "../_components/GetSessionEmail";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { authOptions } from "../_libs/authOptions";
 
 export default function CartPage() {
   const { cartProducts, getCartProducts, loading, removeCartProduct } =

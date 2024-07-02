@@ -1,9 +1,11 @@
 import { Order } from "@/app/_models/Order";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
+
 // import { authOptions } from "@/app/_libs/authOptions";
-import { authOptions } from "../auth/[...nextauth]/route";
+// import { authOptions } from "../auth/[...nextauth]/route";
 import { AdModel } from "@/app/_models/Ad";
+import { authOptions } from "@/app/_libs/authOptions";
 
 const stripe = require("stripe")(process.env.STRIPE_SK);
 

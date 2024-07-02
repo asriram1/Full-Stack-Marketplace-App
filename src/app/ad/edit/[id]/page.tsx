@@ -1,8 +1,8 @@
 "use client";
 import AdTextInputs from "@/app/_components/AdTextInputs";
 import LocationPicker, { Location } from "@/app/_components/LocationPicker";
-// import { authOptions } from "@/app/_libs/authOptions";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SubmitButton from "@/app/_components/SubmitButton";
 import UploadArea from "@/app/_components/UploadArea";
 import { connect, connectAndFind } from "@/app/_libs/connectHelper";
@@ -21,6 +21,7 @@ import {
 import { editAd } from "@/app/_actions/adActions";
 import { redirect } from "next/navigation";
 import { Select, SelectItem } from "@nextui-org/react";
+import { authOptions } from "@/app/_libs/authOptions";
 
 type Props = {
   params: {

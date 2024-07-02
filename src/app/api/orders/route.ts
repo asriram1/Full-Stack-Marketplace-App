@@ -5,8 +5,10 @@ var ObjectId = require("mongodb").ObjectId;
 import { FilterQuery, Model } from "mongoose";
 import React from "react";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/_libs/authOptions";
+
 // import { authOptions } from "@/app/_libs/authOptions";
-import { authOptions } from "../auth/[...nextauth]/route";
+// import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET(req: Request, res: Response) {
   await connect();

@@ -1,6 +1,6 @@
 "use server";
-// import { authOptions } from "@/app/_libs/authOptions";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/_libs/authOptions";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import DeleteButton from "@/app/_components/DeleteButton";
 import Gallery from "@/app/_components/Gallery";
 import LocationMap from "@/app/_components/LocationMap";

@@ -3,9 +3,9 @@ import React from "react";
 import mongoose from "mongoose";
 import { AdModel } from "@/app/_models/Ad";
 import { getServerSession } from "next-auth";
-// import { authOptions } from "../_libs/authOptions";
+import { authOptions } from "../_libs/authOptions";
 
-import { authOptions } from "../api/auth/[...nextauth]/route";
+// import { authOptions } from "../api/auth/[...nextauth]/route";
 
 async function connect() {
   mongoose.connect(process.env.REACT_APP_MONGO_URL as string);

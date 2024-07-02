@@ -11,7 +11,6 @@ import { faShop, faStore } from "@fortawesome/free-solid-svg-icons";
 import LabelRadioButton from "@/app/_components/LabelRadioButton";
 import SearchForm from "@/app/_components/SearchForm";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default function Home() {
   const [ads, setAds] = useState<Ad[]>([]);

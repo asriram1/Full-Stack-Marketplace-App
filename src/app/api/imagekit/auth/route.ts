@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth";
 import React from "react";
 
-import { authOptions } from "../../auth/[...nextauth]/route";
+// import { authOptions } from "../../auth/[...nextauth]/route";
 import ImageKit from "imagekit";
+import { authOptions } from "@/app/_libs/authOptions";
 // import { authOptions } from "@/app/_libs/authOptions";
 
 export const GET = async () => {
