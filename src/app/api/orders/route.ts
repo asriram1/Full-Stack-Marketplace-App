@@ -26,5 +26,4 @@ export async function GET(req: Request, res: Response) {
   if (userEmail) {
     return Response.json(await Order.find({ userEmail }));
   }
-  return true;
 }

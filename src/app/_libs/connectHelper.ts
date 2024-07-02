@@ -10,7 +10,7 @@ export async function connect() {
   }
 }
 
-export async function connectAndFind(id) {
+export async function connectAndFind(id: any) {
   mongoose.connect(process.env.REACT_APP_MONGO_URL as string);
   const adDoc = await AdModel.findById(id);
   //   { id }

@@ -1,3 +1,3 @@
-export default function dbTimeForHuman(str) {
+export default function dbTimeForHuman(str: any) {
   return str.replace("T", " ").substring(0, 16);
 }

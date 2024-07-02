@@ -71,7 +71,7 @@ export default function DistancePicker() {
       }
     });
 
-    map.addListener("click", (ev) => {
+    map.addListener("click", (ev: any) => {
       pin.position = ev.latLng;
       const lat = ev.latLng.lat();
       const lng = ev.latLng.lng();

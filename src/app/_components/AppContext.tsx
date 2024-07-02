@@ -18,7 +18,7 @@ interface CartContextType {
   // getCartProductsFromLocalStorage: { (): Promise<Ad[]> };
   addToCart: { (arg0: Ad): void };
   clearCart: { (): void };
-  removeCartProduct: { (arg0: number): void };
+  removeCartProduct: { (index: number | undefined): void };
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -83,7 +83,7 @@ export const CartContext = createContext<CartContextType>({
   // },
   addToCart(val: Ad) {},
   clearCart() {},
-  removeCartProduct(val: number) {},
+  removeCartProduct(index: number | undefined) {},
 });
 
 export function cartProductPrice(cartProduct: Ad) {
@@ -170,7 +170,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     saveCartProductsToLocalStorage([]);
   }
 
-  function removeCartProduct(indexToRemove: number) {
+  function removeCartProduct(indexToRemove: number | undefined) {
     setCartProducts((prevCartProducts) => {
       const newCartProducts = prevCartProducts.filter(
         (v, index) => index !== indexToRemove

@@ -43,7 +43,6 @@ type MyImageProps = ImageProps & {
 const MyImage = (props: MyImageProps) => {
   return (
     <Image
-      alt="sample"
       loader={(args) =>
         imageKitLoader({
           ...args,
