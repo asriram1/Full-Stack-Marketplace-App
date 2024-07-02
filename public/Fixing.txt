@@ -1,6 +1,4 @@
 Fixing
 
-- Make latest products into whatever category clicked on-
-- fix header logo click to homepage
--fix google icon on ad/id page when logged out.
-- Cart adding items of multiple users - make cart unique to user
+- Images are too heavy - taking long to load in vercel. 
+Use alternate option.

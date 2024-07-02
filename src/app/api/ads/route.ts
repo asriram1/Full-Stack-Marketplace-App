@@ -1,6 +1,6 @@
 import { connect } from "@/app/_libs/connectHelper";
 import { Ad, AdModel } from "@/app/_models/Ad";
-import { FilterQuery, Model } from "mongoose";
+import mongoose, { FilterQuery, Model } from "mongoose";
 import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_libs/authOptions";
@@ -10,6 +10,7 @@ import { authOptions } from "@/app/_libs/authOptions";
 
 export async function GET(req: Request, res: Response) {
   await connect();
+
   const url = new URL(req.url);
   const phrase = url.searchParams.get("phrase") || null;
   const category = url.searchParams.get("category") || null;
@@ -78,8 +79,8 @@ export async function GET(req: Request, res: Response) {
       }
     }
   }
-  const adsDocs = await AdModel.find().skip(0).limit(3);
-  // const adsDocs = await AdModel.find(filter, null, { sort: { createdAt: -1 } });
+  // const adsDocs = await AdModel.find().skip(0).limit(3);
+  const adsDocs = await AdModel.find(filter, null, { sort: { createdAt: -1 } });
 
   return Response.json(adsDocs);
 }
