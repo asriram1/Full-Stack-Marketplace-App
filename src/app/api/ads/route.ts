@@ -78,7 +78,7 @@ export async function GET(req: Request, res: Response) {
       }
     }
   }
-  const adsDocs = await AdModel.find();
+  const adsDocs = await AdModel.find().lean();
   // const adsDocs = await AdModel.find(filter, null, { sort: { createdAt: -1 } });
 
   return Response.json(adsDocs);
