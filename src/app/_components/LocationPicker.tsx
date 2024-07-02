@@ -19,7 +19,7 @@ export default function LocationPicker({
   onChange,
   gpsCoords,
 }: {
-  defaultLocation: Location;
+  defaultLocation: Location | undefined;
   onChange: (location: Location) => void;
   gpsCoords: Location | null;
 }) {

@@ -8,15 +8,35 @@ import { CartContext, cartProductPrice } from "../_components/AppContext";
 import toast from "react-hot-toast";
 import CartProduct from "../_components/CartProduct";
 import { getServerSession } from "next-auth";
+// import { authOptions } from "../_libs/authOptions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Ad } from "../_models/Ad";
+import GetSessionEmail from "../_components/GetSessionEmail";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
-  const { cartProducts, removeCartProduct } = useContext(CartContext);
+  const { cartProducts, getCartProducts, loading, removeCartProduct } =
+    useContext(CartContext);
+  const router = useRouter();
+  const [user, setUser] = useState<string>();
+  // while (loading) {
+  //   console.log("loading...");
+  // }
+  // const cartProducts = getCartProducts();
 
-  let subtotal = 0;
-  for (const p of cartProducts) {
-    subtotal += cartProductPrice(p);
-  }
+  useEffect(() => {
+    const session = async () => {
+      const username = await GetSessionEmail();
+      return username;
+    };
+    session().then((user) => {
+      setUser(user);
+      if (user === "") {
+        router.push("/");
+      }
+    });
+  });
 
   async function proceedToCheckout() {
     toast("Preparing your order...");
@@ -37,7 +57,13 @@ export default function CartPage() {
     }
   }
 
-  if (cartProducts?.length === 0) {
+  let subtotal = 0;
+
+  for (const p of cartProducts!) {
+    subtotal += cartProductPrice(p);
+  }
+
+  if (cartProducts?.length === 0 || user === "") {
     return (
       <section className="mt-8 text-center">
         <p className="mt-4"> Your shopping cart is empty.</p>
@@ -51,8 +77,9 @@ export default function CartPage() {
       <div className="mt-8 grid gap-6 grid-cols-2">
         <div>
           {cartProducts?.length > 0 &&
-            cartProducts.map((product, index) => (
+            cartProducts.map((product: Ad, index: number) => (
               <CartProduct
+                key={index}
                 index={index}
                 product={product}
                 onRemove={removeCartProduct}

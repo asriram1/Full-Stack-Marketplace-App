@@ -20,7 +20,7 @@ export default function AdTextInputs({ setSizes }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [localSizes, setLocalSizes] = useState<string[]>([]);
 
-  function setSizeFunction(value) {
+  function setSizeFunction(value: string) {
     setLocalSizes([]);
     localSizes.push(value);
     console.log(localSizes);
@@ -56,7 +56,9 @@ export default function AdTextInputs({ setSizes }: Props) {
         </option>
 
         {categories.map(({ key: categoryKey, label: categoryLabel }) => (
-          <option value={categoryKey}>{categoryLabel}</option>
+          <option key={categoryKey} value={categoryKey}>
+            {categoryLabel}
+          </option>
         ))}
       </select>
 

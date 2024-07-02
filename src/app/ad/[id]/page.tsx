@@ -1,4 +1,5 @@
 "use server";
+// import { authOptions } from "@/app/_libs/authOptions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import DeleteButton from "@/app/_components/DeleteButton";
 import Gallery from "@/app/_components/Gallery";
@@ -18,7 +19,7 @@ type Props = {
   params: {
     id: string;
   };
-  searchParam: { [key: string]: string };
+  // searchParam: { [key: string]: string };
 };
 
 export default async function SingleAdPage(args: Props) {

@@ -37,7 +37,9 @@ export default function Home() {
     const params = new URLSearchParams();
 
     formData.forEach((value, key) => {
-      params.set(key, value);
+      if (typeof value === "string") {
+        params.set(key, value);
+      }
     });
 
     fetchAds(params);

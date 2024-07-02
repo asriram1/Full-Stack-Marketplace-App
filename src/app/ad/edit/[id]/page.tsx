@@ -1,6 +1,7 @@
 "use client";
 import AdTextInputs from "@/app/_components/AdTextInputs";
 import LocationPicker, { Location } from "@/app/_components/LocationPicker";
+// import { authOptions } from "@/app/_libs/authOptions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SubmitButton from "@/app/_components/SubmitButton";
 import UploadArea from "@/app/_components/UploadArea";
@@ -39,9 +40,11 @@ export default function EditAd(args: Props) {
   const [description, setDescription] = useState<string | undefined>(
     adDoc?.description
   );
-  const [location, setLocation] = useState(adDoc?.location);
+  const [location, setLocation] = useState<Location | undefined>(
+    adDoc?.location
+  );
   const [gpsCoords, setGpsCoords] = useState<Location | null>(null);
-  const [fetch, setFetch] = useState(true);
+  const [fetch, setFetch] = useState<Boolean>(true);
 
   const [sizes, setSizes] = useState<string[]>([]);
 
@@ -61,9 +64,9 @@ export default function EditAd(args: Props) {
       setFetch(false);
     };
     fetchData();
-  }, []);
+  });
 
-  function setSizeFunction(value) {
+  function setSizeFunction(value: string) {
     sizes.push(value);
     console.log(sizes);
   }
@@ -151,7 +154,11 @@ export default function EditAd(args: Props) {
             Select Category
           </option>
           {categories.map(({ key: categoryKey, label: categoryLabel }) => (
-            <option value={categoryKey} selected={categoryKey === category}>
+            <option
+              key={categoryKey}
+              value={categoryKey}
+              selected={categoryKey === category}
+            >
               {categoryLabel}
             </option>
           ))}

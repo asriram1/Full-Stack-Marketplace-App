@@ -3,9 +3,9 @@ import { Ad } from "../_models/Ad";
 import Trash from "./icons/Trash";
 
 type Props = {
-  index: number;
+  index?: number;
   product: Ad;
-  onRemove: (index: number) => void;
+  onRemove?: (index: number) => void;
 };
 
 export default function CartProduct({ index, product, onRemove }: Props) {

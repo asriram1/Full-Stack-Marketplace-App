@@ -74,7 +74,10 @@ export default function Gallery({ files }: { files: UploadResponse[] }) {
       </div>
       <div className="p-4 flex gap-3 justify-center relative z-10">
         {files.map((file) => (
-          <div className="size-24 cursor-pointer rounded overflow-hidden">
+          <div
+            key={file.name}
+            className="size-24 cursor-pointer rounded overflow-hidden"
+          >
             <UploadThumbnail onClick={() => setActiveFile(file)} file={file} />
           </div>
         ))}

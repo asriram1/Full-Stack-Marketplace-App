@@ -1,5 +1,6 @@
 Fixing
 
-- Stripe payment
-- Make the icons interactive on hover
-- Make latest products into whatever category clicked on
+- Make latest products into whatever category clicked on-
+- fix header logo click to homepage
+-fix google icon on ad/id page when logged out.
+- Cart adding items of multiple users - make cart unique to user

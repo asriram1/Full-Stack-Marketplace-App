@@ -14,7 +14,7 @@ export default function LocationMap({ lat, lng }: Prop) {
 
   useEffect(() => {
     loadMap();
-  }, []);
+  });
   async function loadMap() {
     const loader = new Loader({
       apiKey: process.env.NEXT_PUBLIC_MAPS_KEY as string,

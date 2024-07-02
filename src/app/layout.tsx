@@ -3,9 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/_components/Header";
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { Toaster } from "react-hot-toast";
 import { AppProvider } from "./_components/AppContext";
+// import { authOptions } from "./_libs/authOptions";
 
 const inter = Inter({ subsets: ["latin"] });
 

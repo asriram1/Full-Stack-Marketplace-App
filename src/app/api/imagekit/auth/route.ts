@@ -1,7 +1,9 @@
 import { getServerSession } from "next-auth";
 import React from "react";
+
 import { authOptions } from "../../auth/[...nextauth]/route";
 import ImageKit from "imagekit";
+// import { authOptions } from "@/app/_libs/authOptions";
 
 export const GET = async () => {
   const session = await getServerSession(authOptions);

@@ -1,37 +1,177 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
+import { Session, getServerSession } from "next-auth";
 import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Ad } from "../_models/Ad";
 
-export const CartContext = createContext({});
+import { SetStateAction, Dispatch } from "react";
+import { isNullOrUndefined } from "util";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import GetSessionEmail from "./GetSessionEmail";
 
-export function cartProductPrice(cartProduct) {
+interface CartContextType {
+  cartProducts: Ad[];
+  loading: Boolean;
+  setCartProducts: Dispatch<SetStateAction<Ad[]>>;
+  getCartProducts: { (): Ad[] };
+  // getCartProductsFromLocalStorage: { (): Promise<Ad[]> };
+  addToCart: { (arg0: Ad): void };
+  clearCart: { (): void };
+  removeCartProduct: { (arg0: number): void };
+}
+
+export const CartContext = createContext<CartContextType>({
+  cartProducts: [
+    {
+      _id: "",
+      title: "",
+      price: 0,
+      category: "",
+      sizes: [""],
+      description: "",
+      contact: 0,
+      userEmail: "",
+      files: [],
+      location: { lat: 0, lng: 0 },
+    },
+  ],
+  loading: true,
+  setCartProducts: () => {},
+  getCartProducts: () => {
+    return [
+      {
+        _id: "",
+        title: "",
+        price: 0,
+        category: "",
+        sizes: [""],
+        description: "",
+        contact: 0,
+        userEmail: "",
+        files: [],
+        location: { lat: 0, lng: 0 },
+      },
+    ];
+  },
+  // getCartProductsFromLocalStorage: () => {
+  //   // try {
+
+  //   return Promise<Ad[]>;
+
+  //   // [
+  //   //   Ad
+  //   //   // {
+  //   //   //   _id: "",
+  //   //   //   title: "",
+  //   //   //   price: 0,
+  //   //   //   category: "",
+  //   //   //   sizes: [""],
+  //   //   //   description: "",
+  //   //   //   contact: 0,
+  //   //   //   userEmail: "",
+  //   //   //   files: [],
+  //   //   //   location: { lat: 0, lng: 0 },
+  //   //   // },
+  //   // ]
+
+  //   // } catch (err) {
+  //   //   console.log(err);
+  //   // } finally {
+  //   //   console.log("done");
+  //   // }
+  // },
+  addToCart(val: Ad) {},
+  clearCart() {},
+  removeCartProduct(val: number) {},
+});
+
+export function cartProductPrice(cartProduct: Ad) {
   let price = cartProduct.price;
   return price;
 }
 
-export function AppProvider({ children }) {
-  const [cartProducts, setCartProducts] = useState([]);
+type Prop = {
+  cart: Ad | undefined;
+  loading: boolean;
+};
+
+export function AppProvider({ children }: { children: React.ReactNode }) {
+  const [cartProducts, setCartProducts] = useState<Ad[]>([]);
+  let cartProducts2 = [
+    {
+      _id: "",
+      title: "",
+      price: 0,
+      category: "",
+      sizes: [""],
+      description: "",
+      contact: 0,
+      userEmail: "",
+      files: [],
+      location: { lat: 0, lng: 0 },
+    },
+  ];
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [username, setUsername] = useState<string>("");
+  const [cartName, setCartName] = useState<string>("");
   const ls = typeof window !== "undefined" ? window.localStorage : null;
 
   useEffect(() => {
-    if (ls && ls.getItem("cart")) {
-      setCartProducts(JSON.parse(ls.getItem("cart")));
-    }
-  }, []);
+    // let cartName = "";
+    const username = async () => {
+      const username = await GetSessionEmail();
+      return username;
+    };
+    username().then((name) => {
+      let cartName = "cart" + name;
+      console.log(cartName);
+      if (ls && ls.getItem(cartName)) {
+        // cartProducts2 = JSON.parse(ls.getItem(cartName) || "{}");
+        // console.log(cartProducts2);
+        setCartProducts(JSON.parse(ls.getItem(cartName) || "{}"));
+        setLoading(false);
+      }
+      // setCartName(cartName2);
+    });
 
-  function saveCartProductsToLocalStorage(cartProducts) {
+    // setLoading(false);
+  }, []);
+  // first add user to JSON stringify along with cart products, and set name to cart + username
+  // when doing use effect above, get username and test cart+username, to get ls.getItem for the cart+user
+
+  function getCartProducts() {
+    return cartProducts2;
+  }
+
+  async function saveCartProductsToLocalStorage(cartProducts: Ad[]) {
+    const username = await GetSessionEmail();
+    const cartName = "cart" + username;
+    setCartName(cartName);
     if (ls) {
-      ls.setItem("cart", JSON.stringify(cartProducts));
+      ls.setItem(cartName, JSON.stringify(cartProducts));
+      // setCartProducts(JSON.parse(ls.getItem(cartName) || "{}"));
     }
   }
+
+  // async function getCartProductsFromLocalStorage() {
+  //   const username = GetSessionEmail();
+  //   const cartName = "cart" + username;
+  //   if (ls && ls.getItem(cartName)) {
+  //     setCartProducts(JSON.parse(ls.getItem(cartName) || "{}"));
+  //     return cartProducts;
+  //   }
+  //   console.log(cartProducts);
+  //   return cartProducts;
+  // }
+
   function clearCart() {
     setCartProducts([]);
     saveCartProductsToLocalStorage([]);
   }
 
-  function removeCartProduct(indexToRemove) {
+  function removeCartProduct(indexToRemove: number) {
     setCartProducts((prevCartProducts) => {
       const newCartProducts = prevCartProducts.filter(
         (v, index) => index !== indexToRemove
@@ -42,7 +182,7 @@ export function AppProvider({ children }) {
     toast.success("Product removed");
   }
 
-  function addToCart(product) {
+  function addToCart(product: Ad) {
     setCartProducts((prevProducts) => {
       const newProducts = [...prevProducts, product];
       saveCartProductsToLocalStorage(newProducts);
@@ -54,7 +194,10 @@ export function AppProvider({ children }) {
       <CartContext.Provider
         value={{
           cartProducts,
+          getCartProducts,
+          loading,
           setCartProducts,
+          // getCartProductsFromLocalStorage,
           addToCart,
           clearCart,
           removeCartProduct,

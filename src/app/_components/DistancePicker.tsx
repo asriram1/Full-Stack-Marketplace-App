@@ -1,4 +1,4 @@
-import React, { SetStateAction, createRef, useEffect, useState } from "react";
+import React, { SetStateAction, useRef, useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 type Prop = {
@@ -7,7 +7,7 @@ type Prop = {
 };
 
 export default function DistancePicker() {
-  const mapsDiv = createRef<HTMLDivElement | null>(null);
+  const mapsDiv = useRef<HTMLDivElement | null>(null);
   const [radius, setRadius] = useState<number>(300 * 100);
   const [center, setCenter] = useState<Prop>({ lat: 41.878, lng: -87.629 });
   useEffect(() => {
@@ -46,10 +46,10 @@ export default function DistancePicker() {
       editable: true,
       //   radius: Math.sqrt(citymap[city].population) * 100,
     });
-    // const pin = new AdvancedMarkerElement({
-    //   map,
-    //   position: center,
-    // });
+    const pin = new AdvancedMarkerElement({
+      map,
+      position: center,
+    });
 
     google.maps.event.addListener(circle, "radius_changed", function () {
       //   console.log(circle.getBounds());

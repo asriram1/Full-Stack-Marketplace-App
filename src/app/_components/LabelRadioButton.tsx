@@ -5,7 +5,7 @@ import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 type Props = {
   name: string;
   value: string;
-  icon: IconDefinition;
+  icon: string;
   onClick: () => void;
   label: string;
   defaultChecked?: boolean;

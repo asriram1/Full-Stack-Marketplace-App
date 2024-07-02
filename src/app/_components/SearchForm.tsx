@@ -29,6 +29,7 @@ export default function SearchForm({ handleSearch }: Props) {
         />
         {categories.map(({ key: categoryKey, label, icon }) => (
           <LabelRadioButton
+            key={categoryKey}
             name={"category"}
             value={categoryKey}
             label={label}

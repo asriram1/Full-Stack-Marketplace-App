@@ -45,7 +45,10 @@ export default function UploadArea({ files, setFiles }: Props) {
         </label>
         <div className="flex gap-2  mt-2 flex-wrap">
           {files.map((file) => (
-            <div className="text-xs size-16 rounded overflow-hidden">
+            <div
+              key={file.name}
+              className="text-xs size-16 rounded overflow-hidden"
+            >
               <UploadThumbnail file={file} />
             </div>
           ))}

@@ -1,13 +1,14 @@
 import { Order } from "@/app/_models/Order";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
+// import { authOptions } from "@/app/_libs/authOptions";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { AdModel } from "@/app/_models/Ad";
 
 const stripe = require("stripe")(process.env.STRIPE_SK);
 
 export async function POST(req: Request) {
-  mongoose.connect(process.env.REACT_APP_MONGO_URL);
+  mongoose.connect(process.env.REACT_APP_MONGO_URL as string);
 
   const { cartProducts } = await req.json();
   const session = await getServerSession(authOptions);
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
 
   for (const cartProduct of cartProducts) {
     const productInfo = await AdModel.findById(cartProduct._id);
-    let productPrice = productInfo?.price;
+    let productPrice: number = productInfo?.price || 0;
 
     const productTitle = cartProduct.title;
     stripeLineItems.push({

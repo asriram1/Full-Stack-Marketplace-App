@@ -3,6 +3,7 @@ import { Ad, AdModel } from "@/app/_models/Ad";
 import { FilterQuery, Model } from "mongoose";
 import React from "react";
 import { getServerSession } from "next-auth";
+// import { authOptions } from "@/app/_libs/authOptions";
 import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET(req: Request, res: Response) {
@@ -41,9 +42,9 @@ export async function GET(req: Request, res: Response) {
     }
 
     if (url.searchParams.get("radius")) {
-      const radius = parseFloat(url.searchParams.get("radius"));
-      const center_lat = parseFloat(url.searchParams.get("lat"));
-      const center_lng = parseFloat(url.searchParams.get("lng"));
+      const radius = parseFloat(url.searchParams.get("radius")!);
+      const center_lat = parseFloat(url.searchParams.get("lat")!);
+      const center_lng = parseFloat(url.searchParams.get("lng")!);
 
       if (radius) {
         const earthRadiusInKm = 6371; // Radius of the Earth in kilometers

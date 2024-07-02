@@ -19,9 +19,11 @@ import React, { useContext } from "react";
 import { CartContext } from "./AppContext";
 import Cart from "./icons/Cart";
 import Logo from "./icons/Logo";
+import Google from "./icons/Google";
 
 export default function Header({ session }: { session: Session | null }) {
   const { cartProducts } = useContext(CartContext);
+  // let cartProducts = getCartProducts();
   return (
     <header className="border-b flex items-center justify-between">
       <div className="flex flex-col items-center ml-5 ">
@@ -29,27 +31,27 @@ export default function Header({ session }: { session: Session | null }) {
         <p className="text-sm text-[#1E88E5] italic mt-6.5 ">
           Trendy Fashion, Cheap Prices...{" "}
         </p> */}
-        <Link
+        <a
           className="text-blue-600 font-bold text-2xl flex items-center gap-2"
           href="/"
         >
           {/* <img src="logo.png" className="h-8 w-10" alt="logo" /> */}
           <Logo />
           Clothes Bazaar
-        </Link>
+        </a>
         <p className="text-xs italic">Luxury Finds, Great Prices </p>
       </div>
 
       <nav className="flex gap-4  *:rounded *:py-1 ">
         {session?.user && (
-          <Link
+          <a
             href={"/new"}
             className="border border-blue-600 text-blue-600 inline-flex items-center gap-1 px-2 mr-2"
           >
             <FontAwesomeIcon className="h-4" icon={faPlus} />
 
             <span className="text-md">Post Ad</span>
-          </Link>
+          </a>
         )}
 
         <span className="border-r"></span>
@@ -59,7 +61,7 @@ export default function Header({ session }: { session: Session | null }) {
               onClick={() => signIn("google")}
               className="flex items-center justify center gap-2 bg-white text-black border border-gray-300 hover:bg-gray-300 transition delay-150 px-6"
             >
-              <img src="google.png" className="size-5" alt="google" />
+              <Google />
               Login with Google
             </button>
           </>
@@ -71,6 +73,7 @@ export default function Header({ session }: { session: Session | null }) {
                 <Button variant="bordered">
                   {" "}
                   <Image
+                    alt="User Image"
                     src={session?.user?.image as string}
                     width={20}
                     height={20}
@@ -139,15 +142,15 @@ export default function Header({ session }: { session: Session | null }) {
               </DropdownMenu>
             </Dropdown>
 
-            <Link href={"/cart"} className="relative mr-2">
+            <a href={"/cart"} className="relative mr-2">
               <Cart />
-              {console.log(cartProducts)}
+
               {cartProducts?.length > 0 && (
                 <div className="bg-red-200 rounded-full w-3 flex items-center justify-center absolute right-0 -top-2">
                   <div className="text-sm">{cartProducts.length}</div>
                 </div>
               )}
-            </Link>
+            </a>
           </>
         )}
       </nav>

@@ -4,11 +4,12 @@ import { useContext } from "react";
 import { CartContext, cartProductPrice } from "@/app/_components/AppContext";
 import { useParams } from "next/navigation";
 import CartProduct from "@/app/_components/CartProduct";
+import { Order } from "@/app/_models/Order";
 
 export default function OrderPage() {
   const { clearCart } = useContext(CartContext);
-  const [order, setOrder] = useState();
-  const [loadingOrder, setLoadingOrder] = useState(true);
+  const [order, setOrder] = useState<Order>();
+  const [loadingOrder, setLoadingOrder] = useState<Boolean>(true);
 
   const { id } = useParams();
 
@@ -28,7 +29,7 @@ export default function OrderPage() {
       });
       setLoadingOrder(false);
     }
-  }, []);
+  });
 
   let subtotal = 0;
 

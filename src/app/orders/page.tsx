@@ -3,10 +3,32 @@ import React, { useEffect, useState } from "react";
 
 import dbTimeForHuman from "../_libs/datetime";
 import Link from "next/link";
+import { Order } from "../_models/Order";
 
 export default function OrdersPage() {
-  const [orders, setOrders] = useState([]);
-  const [loadingOrders, setLoadingOrders] = useState(false);
+  const [orders, setOrders] = useState<Order[]>([
+    {
+      _id: "",
+      userEmail: "",
+      cartProducts: [
+        {
+          _id: "",
+          title: "",
+          price: 0,
+          category: "",
+          sizes: [""],
+          description: "",
+          contact: 0,
+          userEmail: "",
+          files: [],
+          location: { lat: 0, lng: 0 },
+        },
+      ],
+      paid: false,
+      createdAt: Date.now(),
+    },
+  ]);
+  const [loadingOrders, setLoadingOrders] = useState<Boolean>(false);
 
   useEffect(() => {
     fetchOrders();
@@ -29,7 +51,7 @@ export default function OrdersPage() {
           <div className="text-center"> Loading orders... </div>
         )}
         {orders?.length > 0 &&
-          orders.map((order) => (
+          orders?.map((order) => (
             <div
               key={order._id}
               className="bg-gray-100 mb-2 p-4 rounded-lg flex flex-col md:flex-row flex gap-6 items-center"
