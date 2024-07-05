@@ -67,7 +67,7 @@ export default async function SingleAdPage(args: Props) {
   return (
     <div className="flex " style={{ height: "100vh" }}>
       <div className="grow bg-black text-white flex flex-col relative">
-        <Gallery files={adDoc.files} />
+        <Gallery files={adDoc.images} />
       </div>
       <div className="w-2/5 p-8 grow shrink-0 overflow-y-scroll">
         <h1 className="text-lg font-bold"> {adDoc.title}</h1>
@@ -112,8 +112,13 @@ export default async function SingleAdPage(args: Props) {
         <p>{formatMoney(adDoc.price)}</p>
         <label>Category</label>
         <p className="text-sm"> {adDoc.category}</p>
-        <label>Available Sizes</label>
-        <p className="text-sm"> {adDoc.sizes[0]}</p>
+        {adDoc.category !== "Accessories" && (
+          <div>
+            <label>Available Sizes</label>
+            <p className="text-sm"> {adDoc.sizes[0]}</p>
+          </div>
+        )}
+
         <label>Description</label>
         <p className="text-sm"> {adDoc.description}</p>
         <label>Contact</label>

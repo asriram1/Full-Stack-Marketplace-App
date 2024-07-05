@@ -32,7 +32,7 @@ export const CartContext = createContext<CartContextType>({
       description: "",
       contact: 0,
       userEmail: "",
-      files: [],
+      images: [],
       location: { lat: 0, lng: 0 },
     },
   ],
@@ -49,7 +49,7 @@ export const CartContext = createContext<CartContextType>({
         description: "",
         contact: 0,
         userEmail: "",
-        files: [],
+        images: [],
         location: { lat: 0, lng: 0 },
       },
     ];
@@ -108,7 +108,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       description: "",
       contact: 0,
       userEmail: "",
-      files: [],
+      images: [],
       location: { lat: 0, lng: 0 },
     },
   ];

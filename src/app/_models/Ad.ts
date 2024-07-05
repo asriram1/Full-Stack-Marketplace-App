@@ -10,7 +10,8 @@ export type Ad = {
   description: string;
   contact: number;
   userEmail: string;
-  files: UploadResponse[];
+  // files: UploadResponse[];
+  images: string[];
   location: { lat: number; lng: number };
 };
 
@@ -22,7 +23,8 @@ const adSchema = new Schema<Ad>(
     sizes: [String],
     description: String,
     contact: String,
-    files: [Object],
+    // files: [Object],
+    images: [String],
     location: Object,
     userEmail: { type: String, required: true },
   },

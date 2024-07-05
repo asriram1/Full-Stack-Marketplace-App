@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { AdModel } from "@/app/_models/Ad";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_libs/authOptions";
+var ObjectID = require("mongodb").ObjectID;
 
 // import { authOptions } from "../api/auth/[...nextauth]/route";
 
@@ -12,14 +13,14 @@ async function connect() {
 }
 
 export async function createAd(formData: FormData) {
-  const { files, location, ...data } = Object.fromEntries(formData);
+  const { images, location, ...data } = Object.fromEntries(formData);
   const session = await getServerSession(authOptions);
 
   await connect();
 
   const newAdData = {
     ...data,
-    files: JSON.parse(files as string),
+    images: JSON.parse(images as string),
     location: JSON.parse(location as string),
     userEmail: session?.user?.email,
   };
@@ -41,27 +42,29 @@ export async function findById(id: string) {
 }
 
 export async function editAd(formData: FormData, id: String) {
-  const { files, location, ...data } = Object.fromEntries(formData);
+  const { images, location, ...data } = Object.fromEntries(formData);
   const session = await getServerSession(authOptions);
 
   await connect();
 
   const filter = { _id: id };
+  console.log(data);
   //upsert true means add doc if none exsists
   const options = { upsert: true };
+  console.log(images);
   const updatedAdData = {
     ...data,
-    files: JSON.parse(files as string),
+    images: JSON.parse(images as string),
     location: JSON.parse(location as string),
     userEmail: session?.user?.email,
   };
+
   const updateDoc = {
     $set: updatedAdData,
   };
-
-  const result = await AdModel.updateOne(filter, updateDoc, options);
-
-  console.log(result);
+  console.log(updateDoc);
+  const result = await AdModel.updateOne(filter, updateDoc);
+  return result;
 }
 
 export async function deleteAd(id: String) {

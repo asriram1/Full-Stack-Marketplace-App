@@ -2,3 +2,4 @@ Fixing
 
 - Images are too heavy - taking long to load in vercel. 
 Use alternate option.
+- Use S3 

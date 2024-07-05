@@ -31,7 +31,7 @@ type Props = {
 
 export default function EditAd(args: Props) {
   const [adDoc, setAdDoc] = useState<Ad>();
-  const [files, setFiles] = useState<UploadResponse[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState<string | undefined>(adDoc?.title);
   const [price, setPrice] = useState<number | undefined>(adDoc?.price);
   const [category, setCategory] = useState<string | undefined>(adDoc?.category);
@@ -48,6 +48,7 @@ export default function EditAd(args: Props) {
   const [fetch, setFetch] = useState<Boolean>(true);
 
   const [sizes, setSizes] = useState<string[]>([]);
+  const useEffectVar = false;
 
   useEffect(() => {
     setFetch(true);
@@ -60,12 +61,12 @@ export default function EditAd(args: Props) {
       setDescription(adDoc?.description);
       setContact(adDoc?.contact);
       setLocation(adDoc?.location);
-      setFiles(adDoc?.files);
+      setImages(adDoc?.images);
       setSizes(adDoc?.sizes);
       setFetch(false);
     };
     fetchData();
-  });
+  }, [useEffectVar]);
 
   function setSizeFunction(value: string) {
     sizes.push(value);
@@ -74,13 +75,13 @@ export default function EditAd(args: Props) {
 
   async function handleSubmit(formData: FormData) {
     formData.set("location", JSON.stringify(location));
-    formData.set("files", JSON.stringify(files));
+    formData.set("images", JSON.stringify(images));
     console.log(sizes);
     console.log(sizes[sizes.length - 1]);
     formData.set("sizes", sizes[sizes.length - 1]);
 
-    await editAd(formData, args.params.id);
-
+    const response = await editAd(formData, args.params.id);
+    console.log(response);
     redirect("/ad/" + args.params.id);
   }
 
@@ -105,7 +106,7 @@ export default function EditAd(args: Props) {
       className="max-w-xl mx-auto grid grid-cols-2 gap-8"
     >
       <div className="grow pt-8">
-        <UploadArea files={files} setFiles={setFiles} />
+        <UploadArea setImages={setImages} />
         <div>
           <label className="text-center" htmlFor="">
             {" "}

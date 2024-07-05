@@ -29,7 +29,7 @@ export default function OrderPage() {
       });
       setLoadingOrder(false);
     }
-  });
+  }, [id]);
 
   let subtotal = 0;
 

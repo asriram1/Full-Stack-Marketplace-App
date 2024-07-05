@@ -20,7 +20,7 @@ export default function OrdersPage() {
           description: "",
           contact: 0,
           userEmail: "",
-          files: [],
+          images: [],
           location: { lat: 0, lng: 0 },
         },
       ],

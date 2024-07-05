@@ -22,7 +22,8 @@ const locationDefault = {
 };
 
 export default function NewAdPage() {
-  const [files, setFiles] = useState<UploadResponse[]>([]);
+  // const [files, setFiles] = useState<UploadResponse[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [location, setLocation] = useState<Location>(locationDefault);
   const [gpsCoords, setGpsCoords] = useState<Location | null>(null);
   const [sizes, setSizes] = useState<string[]>([]);
@@ -36,7 +37,8 @@ export default function NewAdPage() {
 
   async function handleSubmit(formData: FormData) {
     formData.set("location", JSON.stringify(location));
-    formData.set("files", JSON.stringify(files));
+    formData.set("images", JSON.stringify(images));
+    // formData.set("files", JSON.stringify(files));
 
     console.log(sizes);
     formData.append("sizes", sizes[0]);
@@ -52,7 +54,7 @@ export default function NewAdPage() {
       className="max-w-xl mx-auto grid grid-cols-2 gap-8"
     >
       <div className="grow pt-8">
-        <UploadArea files={files} setFiles={setFiles} />
+        <UploadArea images={images} setImages={setImages} />
         <div>
           <label className="text-center" htmlFor="">
             {" "}
