@@ -25,14 +25,14 @@ export default function Header({ session }: { session: Session | null }) {
   const { cartProducts } = useContext(CartContext);
   // let cartProducts = getCartProducts();
   return (
-    <header className="border-b flex items-center justify-between">
+    <header className="border-b bg-gray-200 flex items-center justify-between h-24">
       <div className="flex flex-col items-center ml-5 ">
         {/* <img src={"/Liceria.png"} alt="logo" className="size-24" />
         <p className="text-sm text-[#1E88E5] italic mt-6.5 ">
           Trendy Fashion, Cheap Prices...{" "}
         </p> */}
         <a
-          className="text-blue-600 font-bold text-2xl flex items-center gap-2"
+          className="text-blue-600 font-bold text-2xl flex items-center gap-2 ml-5"
           href="/"
         >
           {/* <img src="logo.png" className="h-8 w-10" alt="logo" /> */}
@@ -54,7 +54,7 @@ export default function Header({ session }: { session: Session | null }) {
           </a>
         )}
 
-        <span className="border-r"></span>
+        <span className="border-r bg-black"></span>
         {!session?.user && (
           <>
             <button
