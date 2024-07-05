@@ -1,5 +1,14 @@
+import Image from "next/image";
 import React from "react";
 
 export default function Logo() {
-  return <img src="/logo.png" className="h-8 w-10" alt="logo" />;
+  return (
+    <Image
+      src="/logo.png"
+      className="h-8 w-10"
+      width={10}
+      height={8}
+      alt="logo"
+    />
+  );
 }

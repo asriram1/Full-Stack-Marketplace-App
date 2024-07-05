@@ -9,12 +9,13 @@ import {
 import Uploader from "@/app/_components/Uploader";
 import UploadThumbnail from "./UploadThumbnail";
 import toast from "react-hot-toast";
+import Image from "next/image";
 type Props = {
   setImages: Dispatch<SetStateAction<string[]>>;
 };
 
 export default function UploadArea({ setImages }: Props) {
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState<Boolean>(false);
   const [localImages, setLocalImages] = useState<string[]>([]);
 
   async function handleFileChange(files: any) {
@@ -75,8 +76,11 @@ export default function UploadArea({ setImages }: Props) {
         <div className="flex gap-2  mt-2 flex-wrap">
           {localImages &&
             localImages.map((image) => (
-              <div className="text-xs size-16 rounded overflow-hidden">
-                <img
+              <div
+                key={image}
+                className="text-xs size-16 rounded overflow-hidden"
+              >
+                <Image
                   alt={"product thumbnail"}
                   width={300}
                   height={300}

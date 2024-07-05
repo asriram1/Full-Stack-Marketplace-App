@@ -9,6 +9,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import MyImage from "./MyImage";
+import Image from "next/image";
 
 export default function Gallery({ files }: { files: string[] }) {
   const [activeFile, setActiveFile] = useState<number>(0);
@@ -34,7 +35,7 @@ export default function Gallery({ files }: { files: string[] }) {
     <>
       {files && (
         <div className="absolute inset-0 overflow-hidden ">
-          <img
+          <Image
             src={files[activeFile]}
             alt={"bg"}
             width={2048}
@@ -82,7 +83,7 @@ export default function Gallery({ files }: { files: string[] }) {
             className="size-24 cursor-pointer rounded overflow-hidden"
           >
             <a onClick={() => setActiveFile(index)} target="_blank">
-              <img
+              <Image
                 alt={"product thumbnail"}
                 width={300}
                 height={300}

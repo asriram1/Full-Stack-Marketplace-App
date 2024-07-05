@@ -1,6 +1,7 @@
 import React from "react";
 import { Ad } from "../_models/Ad";
 import Trash from "./icons/Trash";
+import Image from "next/image";
 
 type Props = {
   index?: number | undefined;
@@ -14,7 +15,7 @@ export default function CartProduct({ index, product, onRemove }: Props) {
       <div className="flex gap-4 mb-2 border-b py-4 items-center ">
         <div className="w-24">
           {product.images.length > 0 && (
-            <img src={product.images[0]} width={240} height={240} alt={""} />
+            <Image src={product.images[0]} width={240} height={240} alt={""} />
           )}
         </div>
         <div className="grow">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Ad } from "@/app/_models/Ad";
 import UploadThumbnail from "./UploadThumbnail";
 import MyImage from "./MyImage";
+import Image from "next/image";
 
 export default function AdItem({ ad }: { ad: Ad }) {
   return (
@@ -13,7 +14,7 @@ export default function AdItem({ ad }: { ad: Ad }) {
           href={"/ad/" + ad._id}
           className=" bg-gray-400 p-4 hover:bg-white hover:shadow-md hover: shadow-black/25 transition-all h-full flex flex-col justify-center rounded-md overflow-hidden items-center"
         >
-          <img
+          <Image
             alt={"product thumbnail"}
             width={300}
             height={300}

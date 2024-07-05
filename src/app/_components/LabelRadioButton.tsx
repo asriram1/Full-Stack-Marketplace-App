@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 type Props = {
   name: string;

@@ -54,7 +54,7 @@ export default function NewAdPage() {
       className="max-w-xl mx-auto grid grid-cols-2 gap-8"
     >
       <div className="grow pt-8">
-        <UploadArea images={images} setImages={setImages} />
+        <UploadArea setImages={setImages} />
         <div>
           <label className="text-center" htmlFor="">
             {" "}

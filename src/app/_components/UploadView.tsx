@@ -5,7 +5,7 @@ import MyImage from "./MyImage";
 
 export default function UploadView({ file }: { file: string }) {
   return (
-    <img
+    <Image
       src={file}
       alt={"product photo"}
       width={2048}

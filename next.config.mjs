@@ -5,6 +5,10 @@ const nextConfig = {
       {
         hostname: "*.googleusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "anirudh-marketplace.s3.amazonaws.com",
+      },
     ],
   },
 };
