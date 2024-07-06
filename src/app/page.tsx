@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <div className="flex w-full">
       <SearchForm handleSearch={handleSearch} />
-      <div className=" p-4 bg-black text-white grow w-3/4">
+      <div className=" p-4 bg-gradient-to-bl from-purple-600 to-blue-600 text-white grow w-3/4">
         <h2 className="font-bold mt-2 mb-2">Latest Products</h2>
         <div className=" grid sm:grid-cols-3 md:grid-cols-6 gap-x-4 gap-y-8">
           {ads.map((ad) => (

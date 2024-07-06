@@ -18,8 +18,13 @@ import { useRouter } from "next/navigation";
 import { authOptions } from "../_libs/authOptions";
 
 export default function CartPage() {
-  const { cartProducts, getCartProducts, loading, removeCartProduct } =
-    useContext(CartContext);
+  const {
+    cartProducts,
+    selectedSizes,
+    getCartProducts,
+    loading,
+    removeCartProduct,
+  } = useContext(CartContext);
   const router = useRouter();
   const [user, setUser] = useState<string>();
   // while (loading) {
@@ -82,6 +87,7 @@ export default function CartPage() {
             cartProducts.map((product: Ad, index: number) => (
               <CartProduct
                 key={index}
+                size={selectedSizes[index]}
                 index={index}
                 product={product}
                 onRemove={removeCartProduct}
@@ -95,7 +101,7 @@ export default function CartPage() {
             </div>
 
             <div className=" font-semibold pl-2 text-right">
-              ${subtotal} <br /> $5 <br /> $
+              ${Math.round(subtotal * 100) / 100} <br /> $5 <br /> $
               {Math.round((subtotal + 5.0) * 100) / 100}
             </div>
           </div>

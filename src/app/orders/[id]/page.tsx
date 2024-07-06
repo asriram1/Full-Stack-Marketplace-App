@@ -58,7 +58,7 @@ export default function OrderPage() {
               <div className="text-right py-2 text-gray-500">
                 Subtotal:
                 <span className="text-black font-bold inline-block w-8">
-                  ${subtotal}
+                  ${Math.round(subtotal * 100) / 100}
                 </span>
                 <br />
                 Tax:

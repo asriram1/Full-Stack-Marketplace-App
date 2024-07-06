@@ -112,12 +112,40 @@ export default async function SingleAdPage(args: Props) {
         <p>{formatMoney(adDoc.price)}</p>
         <label>Category</label>
         <p className="text-sm"> {adDoc.category}</p>
-        {adDoc.category !== "Accessories" && (
+        {session && session?.user?.email !== adDoc.userEmail
+          ? adDoc.category !== "Accessories" && (
+              <div>
+                {/* <label>Available Sizes</label>
+                <select
+                  value={size}
+                  onChange={(ev) => setSize(ev.target.value)}
+                >
+                  {adDoc.sizes[0].split(",").map((size) => (
+                    <option value={size}>{size}</option>
+                  ))}
+                </select> */}
+              </div>
+            )
+          : adDoc.category !== "Accessories" && (
+              <div>
+                <label>Available Sizes</label>
+                <p className="text-sm"> {adDoc.sizes[0]}</p>
+              </div>
+            )}
+
+        {/* {session &&
+        session?.user?.email !== adDoc.userEmail &&
+        adDoc.category !== "Accessories" ? (
           <div>
             <label>Available Sizes</label>
             <p className="text-sm"> {adDoc.sizes[0]}</p>
           </div>
-        )}
+        ) : (
+          <div>
+            <label>Available Sizes</label>
+            <p className="text-sm"> {adDoc.sizes[0]}</p>
+          </div>
+        )} */}
 
         <label>Description</label>
         <p className="text-sm"> {adDoc.description}</p>

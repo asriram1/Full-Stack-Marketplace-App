@@ -12,7 +12,7 @@ export default function AdItem({ ad }: { ad: Ad }) {
       {ad.images?.length > 0 && (
         <a
           href={"/ad/" + ad._id}
-          className=" bg-gray-400 p-4 hover:bg-white hover:shadow-md hover: shadow-black/25 transition-all h-full flex flex-col justify-center rounded-md overflow-hidden items-center"
+          className=" bg-black p-4 hover:bg-white hover:shadow-md hover: shadow-black/25 transition-all h-full flex flex-col justify-center rounded-md overflow-hidden items-center"
         >
           <Image
             alt={"product thumbnail"}

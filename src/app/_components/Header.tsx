@@ -25,32 +25,34 @@ export default function Header({ session }: { session: Session | null }) {
   const { cartProducts } = useContext(CartContext);
   // let cartProducts = getCartProducts();
   return (
-    <header className="border-b bg-gray-200 flex items-center justify-between h-24">
+    <header className="bg-blue-600 z-50 sticky top-0 shadow text-white flex items-center justify-between h-24">
       <div className="flex flex-col items-center ml-5 ">
         {/* <img src={"/Liceria.png"} alt="logo" className="size-24" />
         <p className="text-sm text-[#1E88E5] italic mt-6.5 ">
           Trendy Fashion, Cheap Prices...{" "}
         </p> */}
         <a
-          className="text-blue-600 font-bold text-2xl flex items-center gap-2 ml-5"
+          className="text-white font-bold text-2xl flex items-center gap-2 ml-5"
           href="/"
         >
           {/* <img src="logo.png" className="h-8 w-10" alt="logo" /> */}
           <Logo />
           Clothes Bazaar
         </a>
-        <p className="text-xs italic">Luxury Finds, Great Prices </p>
+        <p className=" text-white text-xs italic">
+          Luxury Finds, Great Prices{" "}
+        </p>
       </div>
 
       <nav className="flex gap-4  *:rounded *:py-1 ">
         {session?.user && (
           <a
             href={"/new"}
-            className="border border-blue-600 text-blue-600 inline-flex items-center gap-1 px-2 mr-2"
+            className="border border-white-600 text-white-600 inline-flex items-center gap-1 px-2 mr-2"
           >
             <FontAwesomeIcon className="h-4" icon={faPlus} />
 
-            <span className="text-md">Post Ad</span>
+            <span className=" text-white text-md">Post Ad</span>
           </a>
         )}
 
@@ -146,7 +148,7 @@ export default function Header({ session }: { session: Session | null }) {
               <Cart />
 
               {cartProducts?.length > 0 && (
-                <div className="bg-red-200 rounded-full w-3 flex items-center justify-center absolute right-0 -top-2">
+                <div className="bg-red-600 rounded-full w-3 flex items-center justify-center absolute right-0 -top-2">
                   <div className="text-sm">{cartProducts.length}</div>
                 </div>
               )}

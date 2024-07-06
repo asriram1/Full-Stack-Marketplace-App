@@ -1,5 +1,17 @@
 Fixing
 
-- Images are too heavy - taking long to load in vercel. 
-Use alternate option.
-- Use S3 
+- on ad/id page if user not owner of product, then instead
+of having sizes as text - make it a select input
+- When add to cart clicked, if not selected size prompt
+user to select size
+
+- in cart page, show selected size as selected value, and allow
+change through select.
+
+- on order - add value for size selected.
+- display on orders page and orders/id page. 
+
+
+- Add size to Order and print on order/id page
+
+

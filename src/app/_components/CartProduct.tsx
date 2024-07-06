@@ -5,11 +5,12 @@ import Image from "next/image";
 
 type Props = {
   index?: number | undefined;
+  size?: string | undefined;
   product: Ad;
   onRemove?: (index: number | undefined) => void;
 };
 
-export default function CartProduct({ index, product, onRemove }: Props) {
+export default function CartProduct({ index, size, product, onRemove }: Props) {
   return (
     <>
       <div className="flex gap-4 mb-2 border-b py-4 items-center ">
@@ -21,6 +22,7 @@ export default function CartProduct({ index, product, onRemove }: Props) {
         <div className="grow">
           <h3 className="font-semibold">{product.title}</h3>
           <p>{product.category}</p>
+          <p>Size: {size}</p>
         </div>
         <div className="font-semibold text-lg">${product.price}</div>
         {!!onRemove && (

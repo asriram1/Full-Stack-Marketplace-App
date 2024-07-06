@@ -12,11 +12,12 @@ import GetSessionEmail from "./GetSessionEmail";
 
 interface CartContextType {
   cartProducts: Ad[];
+  selectedSizes: string[];
   loading: Boolean;
   setCartProducts: Dispatch<SetStateAction<Ad[]>>;
   getCartProducts: { (): Ad[] };
   // getCartProductsFromLocalStorage: { (): Promise<Ad[]> };
-  addToCart: { (arg0: Ad): void };
+  addToCart: { (arg0: Ad, arg1: string): void };
   clearCart: { (): void };
   removeCartProduct: { (index: number | undefined): void };
 }
@@ -36,6 +37,7 @@ export const CartContext = createContext<CartContextType>({
       location: { lat: 0, lng: 0 },
     },
   ],
+  selectedSizes: [""],
   loading: true,
   setCartProducts: () => {},
   getCartProducts: () => {
@@ -81,7 +83,7 @@ export const CartContext = createContext<CartContextType>({
   //   //   console.log("done");
   //   // }
   // },
-  addToCart(val: Ad) {},
+  addToCart(val: Ad, val2: string) {},
   clearCart() {},
   removeCartProduct(index: number | undefined) {},
 });
@@ -98,6 +100,7 @@ type Prop = {
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [cartProducts, setCartProducts] = useState<Ad[]>([]);
+
   let cartProducts2 = [
     {
       _id: "",
@@ -115,6 +118,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState<Boolean>(true);
   const [username, setUsername] = useState<string>("");
   const [cartName, setCartName] = useState<string>("");
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const ls = typeof window !== "undefined" ? window.localStorage : null;
 
   useEffect(() => {
@@ -125,11 +129,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     };
     username().then((name) => {
       let cartName = "cart" + name;
-      console.log(cartName);
       if (ls && ls.getItem(cartName)) {
         // cartProducts2 = JSON.parse(ls.getItem(cartName) || "{}");
         // console.log(cartProducts2);
         setCartProducts(JSON.parse(ls.getItem(cartName) || "{}"));
+        setLoading(false);
+      }
+      let sizesName = "sizes" + name;
+      if (ls && ls.getItem(sizesName)) {
+        setSelectedSizes(JSON.parse(ls.getItem(sizesName) || ""));
         setLoading(false);
       }
       // setCartName(cartName2);
@@ -150,6 +158,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setCartName(cartName);
     if (ls) {
       ls.setItem(cartName, JSON.stringify(cartProducts));
+      // setCartProducts(JSON.parse(ls.getItem(cartName) || "{}"));
+    }
+  }
+
+  async function saveSizesToLS(selectedSizes: string[]) {
+    const username = await GetSessionEmail();
+    const sizesName = "sizes" + username;
+    if (ls) {
+      ls.setItem(sizesName, JSON.stringify(selectedSizes));
       // setCartProducts(JSON.parse(ls.getItem(cartName) || "{}"));
     }
   }
@@ -181,11 +198,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     toast.success("Product removed");
   }
 
-  function addToCart(product: Ad) {
+  function addToCart(product: Ad, size: string) {
     setCartProducts((prevProducts) => {
       const newProducts = [...prevProducts, product];
       saveCartProductsToLocalStorage(newProducts);
       return newProducts;
+    });
+    setSelectedSizes((prevSizes) => {
+      const newSizes = [...prevSizes, size];
+      saveSizesToLS(newSizes);
+      return newSizes;
     });
   }
   return (
@@ -193,6 +215,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       <CartContext.Provider
         value={{
           cartProducts,
+          selectedSizes,
           getCartProducts,
           loading,
           setCartProducts,
