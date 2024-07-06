@@ -40,7 +40,7 @@ export default function OrderPage() {
   }
 
   return (
-    <div className=" flex flex-col mx-auto mt-8 ml-5 h-[80vh]">
+    <div className=" flex flex-col mx-auto mt-8 ml-5 h-[80vh] max-w-[80%]">
       <div className="text-center">
         <div className="mt-4 mb-8">
           <p>Thanks for your order</p>

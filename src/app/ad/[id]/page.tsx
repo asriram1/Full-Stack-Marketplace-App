@@ -66,7 +66,7 @@ export default async function SingleAdPage(args: Props) {
 
   return (
     <div className="flex " style={{ height: "100vh" }}>
-      <div className="grow bg-black text-white flex flex-col relative">
+      <div className="grow bg-black text-white flex flex-col relative min-w-[50%] max-w-[50%]">
         <Gallery files={adDoc.images} />
       </div>
       <div className="w-2/5 p-8 grow shrink-0 overflow-y-scroll">
