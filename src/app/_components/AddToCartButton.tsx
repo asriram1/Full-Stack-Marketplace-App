@@ -26,7 +26,9 @@ export default function AddToCartButton({ adDoc }: { adDoc: Ad }) {
           >
             <option>Size</option>
             {adDoc.sizes[0].split(",").map((size) => (
-              <option value={size}>{size}</option>
+              <option key={size} value={size}>
+                {size}
+              </option>
             ))}
           </select>
         </div>
