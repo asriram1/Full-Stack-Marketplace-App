@@ -27,6 +27,7 @@ export default function OrdersPage() {
           location: { lat: 0, lng: 0 },
         },
       ],
+      selectedSizes: [""],
       paid: false,
       createdAt: Date.now(),
     },

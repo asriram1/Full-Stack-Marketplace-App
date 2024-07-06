@@ -13,5 +13,8 @@ change through select.
 
 
 - Add size to Order and print on order/id page
+- Create Checkout failure page & link to api/checkout
+- Add to cart text on button
+- Showing size: for accessories on /cart page (also order/id page maybe)
 
 

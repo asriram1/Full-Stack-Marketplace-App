@@ -185,6 +185,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   function clearCart() {
     setCartProducts([]);
     saveCartProductsToLocalStorage([]);
+    saveSizesToLS([]);
   }
 
   function removeCartProduct(indexToRemove: number | undefined) {
@@ -194,6 +195,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       );
       saveCartProductsToLocalStorage(newCartProducts);
       return newCartProducts;
+    });
+    setSelectedSizes((prevSizes) => {
+      const newSizes = prevSizes.filter((v, index) => index !== indexToRemove);
+      saveSizesToLS(newSizes);
+      return newSizes;
     });
     toast.success("Product removed");
   }

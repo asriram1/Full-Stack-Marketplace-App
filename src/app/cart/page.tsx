@@ -47,11 +47,11 @@ export default function CartPage() {
 
   async function proceedToCheckout() {
     toast("Preparing your order...");
-
+    console.log(cartProducts, selectedSizes);
     const response = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cartProducts }),
+      body: JSON.stringify({ cartProducts, selectedSizes }),
     });
 
     if (response.ok) {

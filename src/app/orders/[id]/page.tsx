@@ -40,7 +40,7 @@ export default function OrderPage() {
   }
 
   return (
-    <section className=" mx-auto mt-8 ">
+    <div className=" flex flex-col mx-auto mt-8 ml-5 h-[80vh]">
       <div className="text-center">
         <div className="mt-4 mb-8">
           <p>Thanks for your order</p>
@@ -52,8 +52,12 @@ export default function OrderPage() {
         {order && (
           <div className="md:grid grid-cols-2 gap-16">
             <div>
-              {order.cartProducts.map((product) => (
-                <CartProduct key={product._id} product={product} />
+              {order.cartProducts.map((product, index: number) => (
+                <CartProduct
+                  key={product._id}
+                  size={order.selectedSizes[index]}
+                  product={product}
+                />
               ))}
               <div className="text-right py-2 text-gray-500">
                 Subtotal:
@@ -75,6 +79,6 @@ export default function OrderPage() {
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }

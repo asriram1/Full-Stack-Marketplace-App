@@ -30,7 +30,7 @@ export default async function RootLayout({
           <Header session={session} />
           <Toaster />
           {children}
-          <footer className="border-t p-5 text-center text-gray-400 ">
+          <footer className="border-t p-5 text-center text-gray-400">
             &copy; 2024 Clothes Bazaar. All rights reserved.
           </footer>
         </AppProvider>

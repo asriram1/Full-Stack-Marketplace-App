@@ -12,16 +12,17 @@ const stripe = require("stripe")(process.env.STRIPE_SK);
 export async function POST(req: Request) {
   mongoose.connect(process.env.REACT_APP_MONGO_URL as string);
 
-  const { cartProducts } = await req.json();
+  const { cartProducts, selectedSizes } = await req.json();
   const session = await getServerSession(authOptions);
   const userEmail = session?.user?.email;
-
+  console.log(selectedSizes);
   const orderDoc = await Order.create({
     userEmail,
     cartProducts,
+    selectedSizes,
     paid: false,
   });
-
+  console.log(orderDoc);
   const stripeLineItems = [];
 
   for (const cartProduct of cartProducts) {
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
       "?clear-cart=1",
     // process.env.NEXTAUTH_URL +
 
-    cancel_url: process.env.NEXTAUTH_URL + "/checkout-failure",
+    cancel_url: process.env.NEXTAUTH_URL + "checkout-failure",
     // cancel_url: process.env.NEXTAUTH_URL + "cart?canceled=1",
     metadata: { orderId: orderDoc._id.toString() },
     payment_intent_data: {
