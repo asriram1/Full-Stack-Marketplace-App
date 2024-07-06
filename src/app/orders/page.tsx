@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import dbTimeForHuman from "../_libs/datetime";
 import Link from "next/link";
 import { Order } from "../_models/Order";
+import GetSessionEmail from "../_components/GetSessionEmail";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([
@@ -28,7 +31,9 @@ export default function OrdersPage() {
       createdAt: Date.now(),
     },
   ]);
-  const [loadingOrders, setLoadingOrders] = useState<Boolean>(false);
+  const [loadingOrders, setLoadingOrders] = useState<Boolean>(true);
+  const router = useRouter();
+  const [user, setUser] = useState<string>();
 
   useEffect(() => {
     fetchOrders();
@@ -38,18 +43,39 @@ export default function OrdersPage() {
     setLoadingOrders(true);
     fetch("/api/orders").then((res) => {
       res.json().then((orders) => {
+        // console.log(orders);
         setOrders(orders.reverse());
         setLoadingOrders(false);
       });
     });
+
+    const session = async () => {
+      const username = await GetSessionEmail();
+      return username;
+    };
+    session().then((user) => {
+      setUser(user);
+      if (user === "") {
+        toast("You need to login to access this page.");
+        router.push("/");
+      }
+    });
+  }
+
+  if (loadingOrders || user === "") {
+    return (
+      <section className="mt-8 text-center">
+        <p className="mt-4"> Loading Orders...</p>
+      </section>
+    );
   }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
       <div className="mt-8">
-        {loadingOrders && (
+        {/* {lo && (
           <div className="text-center"> Loading orders... </div>
-        )}
+        )} */}
         {orders?.length > 0 &&
           orders?.map((order) => (
             <div
@@ -72,7 +98,8 @@ export default function OrdersPage() {
                   <div className="flex gap-2 items-center mb-1">
                     <div className="grow"> {order.userEmail} </div>
                     <div className="text-gray-500 text-xs">
-                      {dbTimeForHuman(order.createdAt)}{" "}
+                      {new Date(order.createdAt).toDateString()}
+                      {/* {dbTimeForHuman(order.createdAt)}{" "} */}
                     </div>
                   </div>
                   <div className="text-gray-500 text-xs">
