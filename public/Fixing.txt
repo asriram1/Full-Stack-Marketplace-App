@@ -17,4 +17,6 @@ change through select.
 - Add to cart text on button
 - Showing size: for accessories on /cart page (also order/id page maybe)
 
+- make order centered order/id
+
 

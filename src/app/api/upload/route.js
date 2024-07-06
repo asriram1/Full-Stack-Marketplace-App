@@ -1,5 +1,6 @@
 import Credentials from "next-auth/providers/credentials";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import uniqid from "uniqid";
 
 const s3Client = new S3Client({
@@ -20,17 +21,18 @@ async function s3Upload({ files, links }) {
     }
     const buffer = Buffer.concat(chunks);
     const bucket = "anirudh-marketplace";
+
     await s3Client.send(
       new PutObjectCommand({
         Bucket: bucket,
         Key: newFileName,
-        ACL: "public-read",
+        ACL: "public-read-write",
         ContentType: file.type,
         Body: buffer,
       })
     );
     const link = "https://" + bucket + ".s3.amazonaws.com/" + newFileName;
-    // console.log(link);
+
     links.push(link);
   });
 }

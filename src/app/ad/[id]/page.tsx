@@ -84,7 +84,7 @@ export default async function SingleAdPage(args: Props) {
             <FontAwesomeIcon className="size-2" icon={faTrash} />
             <span>Delete</span>
           </button> */}
-            <div className="z-50">
+            <div className="z-40">
               <DeleteButton label="Delete" id={id} />
             </div>
           </div>
