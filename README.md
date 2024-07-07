@@ -1,6 +1,7 @@
 ## Technologies:  (Next.js (React), TypeScript, MongoDB, TailwindCSS, AWS, Vercel) 
 
 Application Link -   https://full-stack-marketplace-app.vercel.app
+(Make sure to turn off Adblock to ensure all functionality is working)
 
 This platform offers users ability to list and buy clothing & accessories. Enables easy searching for products based on location using Google Maps API, authentication through Google Oauth, and payment through Stripe. Images stored on AWS S3 using Lambda & API Gateway to generate upload URLs for users. 
 
