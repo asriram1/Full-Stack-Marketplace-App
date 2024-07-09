@@ -42,12 +42,12 @@ export default function OrderPage() {
   return (
     <div className=" flex flex-col mx-auto mt-8 ml-5 h-[80vh] max-w-[80%]">
       <div className="text-center">
-        <div className="mt-4 mb-8">
+        <div className="mt-4 mb-8 ml-60">
           <p>Thanks for your order</p>
           <p>The order pickup details have been sent to your email.</p>
         </div>
       </div>
-      <div className="w-full ml-10">
+      <div className="w-full mx-auto">
         {loadingOrder && <div>Loading Order...</div>}
         {order && (
           <div className="md:grid grid-cols-2 gap-16">
