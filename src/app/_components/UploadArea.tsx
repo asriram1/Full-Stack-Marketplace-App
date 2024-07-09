@@ -1,5 +1,11 @@
 import { UploadResponse } from "imagekit/dist/libs/interfaces";
-import React, { Dispatch, SetStateAction, createRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  createRef,
+  useEffect,
+  useState,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faImage,
@@ -10,6 +16,8 @@ import Uploader from "@/app/_components/Uploader";
 import UploadThumbnail from "./UploadThumbnail";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import axios from "axios";
+
 type Props = {
   setImages: Dispatch<SetStateAction<string[]>>;
 };
@@ -17,25 +25,63 @@ type Props = {
 export default function UploadArea({ setImages }: Props) {
   const [isUploading, setIsUploading] = useState<Boolean>(false);
   const [localImages, setLocalImages] = useState<string[]>([]);
+  const [error, setError] = useState<Boolean>(false);
+
+  useEffect(() => {
+    setImages(localImages);
+  }, [localImages]);
 
   async function handleFileChange(files: any) {
     const data = new FormData();
+    const API_ENDPOINT =
+      "https://mltp6s0c4h.execute-api.us-east-1.amazonaws.com/default/getPresignedUrl-py";
+    const bucket = "anirudh-marketplace";
+    setLocalImages([]);
+    setImages([]);
     for (var x = 0; x < files.length; x++) {
-      data.append("files[]", files[x]);
+      // data.append("files[]", files[x]);
+      let key = "";
+      const getPresignedUrl = async () => {
+        const response = await axios({
+          method: "GET",
+          url: "https://mltp6s0c4h.execute-api.us-east-1.amazonaws.com/default/getPresignedUrl-py",
+        });
+        // return response;
+        const preSignedUrl = response.data.presignedUrl;
+        key = response.data.key;
+
+        return preSignedUrl;
+      };
+      const presignedUrl = await getPresignedUrl();
+      console.log(presignedUrl);
+      const uploadResponse = await axios.put(presignedUrl, files[x], {
+        headers: {
+          "Content-Type": "image/jpeg",
+        },
+      });
+
+      if (uploadResponse.status !== 200) {
+        toast.error("Upload Error");
+        setIsUploading(false);
+        setError(true);
+        break;
+      }
+      // setUploadResponse(uploadResponse);
+      console.log(uploadResponse);
+      const link = "https://" + bucket + ".s3.amazonaws.com/" + key;
+      setLocalImages((prevItems) => [...prevItems, link]);
     }
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: data,
-    });
-    const links = await response.json();
-    setImages(links);
-    setLocalImages(links);
-    console.log(links);
-    if (response.ok) {
+    // const response = await fetch("/api/upload", {
+    //   method: "POST",
+    //   body: data,
+    // });
+    // const links = await response.json();
+
+    // setImages(links);
+    // setLocalImages(links);
+    // console.log(links);
+    if (!error) {
       toast.success("Upload Complete");
-      setIsUploading(false);
-    } else {
-      toast.error("Upload Error");
       setIsUploading(false);
     }
   }

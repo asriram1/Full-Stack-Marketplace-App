@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "anirudh-marketplace.s3.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "anirudh-marketplace-test.s3.amazonaws.com",
+      },
     ],
   },
 };
